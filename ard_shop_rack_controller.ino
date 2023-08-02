@@ -126,8 +126,10 @@ void loop() {
     return;
     }
     tempF = DallasTemperature::toFahrenheit(tempC);
-
     int PwmOut = map(tempF,LowFanTemp,HighFanTemp,MIN_PWM,255);
+    if (tempF > HighFanTemp) {PwmOut = 255;}
+    else if (PwmOut < MIN_PWM) {PwmOut = 0;}
+
     analogWrite(PWM_PIN,PwmOut);
 
 
