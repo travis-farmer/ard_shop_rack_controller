@@ -10,6 +10,7 @@
 #define ONE_WIRE_BUS 22 // 4k7 pullup
 #define PWM_PIN 3
 #define DIR_PIN 12
+#define MIN_PWM 5
 
 LiquidCrystal_I2C lcd(0x27,20,4);
 OneWire oneWire(ONE_WIRE_BUS);
@@ -126,7 +127,7 @@ void loop() {
     }
     tempF = DallasTemperature::toFahrenheit(tempC);
 
-    int PwmOut = map(tempF,LowFanTemp,HighFanTemp,5,255);
+    int PwmOut = map(tempF,LowFanTemp,HighFanTemp,MIN_PWM,255);
     analogWrite(PWM_PIN,PwmOut);
 
 
